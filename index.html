@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex, nofollow"><style>[hidden]{display:none!important}</style>
+<title>Muntatge TFM PIMPAN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&family=Public+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: fulls A4 sobre un escriptori gris, un capítol per full, comentaris al marge dret com al Word */
+:root{
+  --desk:#E4E6EA; --bar:#F7F8FA; --barline:#D3D7DE; --ui:#2A3140; --uimuted:#5E6675;
+  --paper:#FFFFFF; --text:#1A1A1A; --navy:#1F3864; --red:#C00000; --grey:#7A7F87;
+  --cm-bg:#FFFFFF; --cm-line:#C9CED6; --cm-accent:#B07A12; --ok:#2F7A54;
+  --doc:"Carlito","Calibri",Carlito,"Segoe UI",Arial,sans-serif; --ui-font:"Public Sans",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --desk:#1B1F27; --bar:#232934; --barline:#343C4A; --ui:#E3E7EE; --uimuted:#9AA3B2;
+  --cm-bg:#2A303C; --cm-line:#3D4555; --cm-accent:#E0B25A; --ok:#6FCB9B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --desk:#1B1F27; --bar:#232934; --barline:#343C4A; --ui:#E3E7EE; --uimuted:#9AA3B2;
+  --cm-bg:#2A303C; --cm-line:#3D4555; --cm-accent:#E0B25A; --ok:#6FCB9B; color-scheme:dark}
+*{box-sizing:border-box}
+html,body{background:var(--desk)}
+body{color:var(--ui);font-family:var(--ui-font);margin:0}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bar);border-bottom:1px solid var(--barline);padding:10px 16px}
+.topbar-in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
+.fname{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;min-width:0}
+.fname svg{flex:none}
+.fname span{overflow-wrap:anywhere}
+.stats{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--uimuted);font-variant-numeric:tabular-nums}
+.stats b{color:var(--ui);font-weight:600}
+.sw{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:baseline}
+.upd{margin-left:auto;font-size:12.5px;color:var(--uimuted)}
+.desk{padding-inline:16px;padding-block:28px 60px;display:flex;flex-direction:column;align-items:center;gap:28px}
+.pagewrap{position:relative;display:flex;gap:18px;width:100%;max-width:1100px;justify-content:center}
+.sheet{background:var(--paper);color:var(--text);width:794px;max-width:100%;min-height:1123px;padding:86px 76px 70px;box-shadow:0 1px 3px rgba(0,0,0,.18),0 6px 18px rgba(0,0,0,.08);font-family:var(--doc);font-size:15px;line-height:1.45;position:relative;display:flex;flex-direction:column}
+.sheet .body{flex:1;display:flex;flex-direction:column;gap:10px}
+.pgno{text-align:center;color:#8A8F98;font-size:12.5px;margin-top:28px}
+.rail{width:270px;flex:none;position:relative}
+h1.d{font-family:var(--doc);color:var(--navy);font-size:23px;font-weight:700;margin:0 0 6px;letter-spacing:.01em}
+h2.d{font-family:var(--doc);color:var(--navy);font-size:18.5px;font-weight:700;margin:16px 0 2px}
+.sec{position:relative;display:flex;flex-direction:column;gap:4px}
+.sec.hl{background:#FFF4D6;outline:1px dashed #E2B34B;outline-offset:3px}
+p.d{margin:0;text-align:justify}
+p.falta{color:var(--red);font-weight:700;margin:0}
+p.auto{color:var(--grey);font-style:italic;margin:0}
+.cover{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:14px}
+.cover .big{font-size:34px;color:var(--navy);font-weight:700;letter-spacing:.02em}
+.toc{display:flex;flex-direction:column;gap:3px}
+.toc div{display:flex;gap:6px;align-items:baseline}
+.toc .l{white-space:normal}
+.toc .lead{flex:1;border-bottom:1.5px dotted #9AA0A8;transform:translateY(-4px);min-width:20px}
+.toc .lv1{font-weight:700;margin-top:6px}
+.toc .lv2{padding-left:22px}
+.toc .grp{font-weight:700;color:var(--navy);margin-top:10px;font-size:13.5px;letter-spacing:.06em}
+.toc-note{color:var(--grey);font-style:italic;font-size:13.5px;margin-top:10px}
+/* comentaris */
+.cm{position:absolute;left:0;width:100%;background:var(--cm-bg);border:1px solid var(--cm-line);border-left:3px solid var(--cm-accent);border-radius:4px;padding:8px 10px;font-size:12.5px;line-height:1.4;color:var(--ui);cursor:default;transition:box-shadow .15s}
+.cm:hover,.cm.on{box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.cm .who{font-weight:600;font-size:11.5px;color:var(--cm-accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.cm p{margin:0}
+.cm p+p{margin-top:4px}
+.cm .k{color:var(--uimuted)}
+.cm-inline{display:none;margin-top:4px;background:#FBF3E2;border-left:3px solid #B07A12;border-radius:3px;padding:6px 9px;font-family:var(--ui-font);font-size:12.5px;line-height:1.4;color:#4A3A12}
+.cm-inline p{margin:0}.cm-inline p+p{margin-top:3px}
+.desknote{width:100%;max-width:794px;background:var(--cm-bg);border:1px solid var(--cm-line);border-radius:6px;padding:16px 18px;font-size:14px;line-height:1.5;display:flex;flex-direction:column;gap:8px}
+.desknote h3{margin:0;font-size:15px}
+.desknote p{margin:0;color:var(--uimuted)}
+.desknote ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.desknote li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;color:var(--uimuted);font-size:13.5px}
+.desknote time{color:var(--ui);font-variant-numeric:tabular-nums;font-size:12.5px;padding-top:1px}
+@media (max-width:1180px){
+  .rail{display:none}
+  .cm-inline{display:block}
+}
+@media (max-width:700px){
+  .sheet{min-height:0;padding:36px 22px 28px;font-size:14.5px}
+  .cover{min-height:60vh}
+  .cover .big{font-size:26px}
+  h1.d{font-size:20px}
+  .upd{margin-left:0}
+  .desknote li{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){.cm{transition:none}}
+</style>
+
+<div class="topbar"><div class="topbar-in">
+  <div class="fname"><svg width="16" height="18" viewBox="0 0 16 18" aria-hidden="true"><path d="M1.5 1.5h8.5l4.5 4.5v10.5h-13z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10 1.5V6h4.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>PIMPAN_TFM_MUNTATGE.docx</span></div>
+  <div class="stats" id="stats"></div>
+  <div class="upd" id="upd"></div>
+</div></div>
+
+<main class="desk" id="desk"></main>
+
+<script>
+const UPDATED = "27/10/2026 · 17:55";
+// estat: falta | font | ok | auto.  contingut: paràgrafs ja col·locats (quan s'omplin).
+const DATA = [
+ {group:"PARTS PRELIMINARS", items:[
+  {id:"portada",t:"Portada",s:"falta",falta:["Títol definitiu del treball","Autors: Susana Samón, Gerard Arderiu, Jaume Bisbe (per confirmar)","Tutor/a, màster, universitat i data"],note:"La portada del pla financer (títol i tres autors) es pot aprofitar com a base."},
+  {id:"agraiments",t:"Agraïments i tutors",s:"falta",falta:["Text d'agraïments","Nom del tutor/a"]},
+  {id:"cita",t:"Cita",s:"falta",falta:["Cita triada i autor"]},
+  {id:"index",t:"Índex general",s:"auto"},
+  {id:"sigles",t:"Sigles i abreviatures",s:"falta",falta:["Llista de sigles i abreviatures"],note:"Es pot compilar del text muntat: HORECA, PdE, VAN, TIR, BIN, CE, RC, LSC, IVA, QCI…"}
+ ]},
+ {group:"COS DEL TREBALL", items:[
+  {num:"1",t:"RESUM EXECUTIU",parent:true,note:"Convé escriure'l al final, a partir de tota la resta."},
+  {num:"1.1",t:"Oportunitat de mercat i tesi estratègica",s:"font",src:"Pla de màrqueting · 1.4 Oportunitat de mercat",falta:["Tesi estratègica: no apareix com a tal enlloc"]},
+  {num:"1.2",t:"Concepte de negoci i proposta de valor",s:"font",src:"Pla de màrqueting · 1.5 Concepte de producte i proposta de valor"},
+  {num:"1.3",t:"Model de negoci i estructura d'ingressos",s:"font",src:"Pla financer FINAL-4 · Resum executiu (venda al distribuïdor a 489,30 €)"},
+  {num:"1.4",t:"Organització, equip i operacions",s:"font",src:"Pla financer FINAL-4 · Presentació de l'empresa; Pla d'empresa V.1 · Pla d'organització",falta:["La part d'operacions: no hi ha pla d'operacions"]},
+  {num:"1.5",t:"Resum del pla d'inversions i viabilitat econòmica-financera",s:"font",src:"Pla financer FINAL-4 · I. Resum executiu"},
+  {num:"2",t:"INTRODUCCIÓ",parent:true},
+  {num:"2.1",t:"Contextualització del projecte",s:"font",src:"Pla de màrqueting · 1.1 Presentació de l'empresa i 2.1 Sector i àmbit d'actuació"},
+  {num:"2.2",t:"Origen de la idea i motivació",s:"font",src:"Pla de màrqueting · 1.2 Motivació que impulsa la seva realització"},
+  {num:"2.3",t:"Abast i objectius del Pla d'Empresa",s:"font",src:"Pla de màrqueting · 1.3 Objectius del projecte",falta:["Abast del pla d'empresa: què cobreix el document"]},
+  {num:"3",t:"ANÀLISI ESTRATÈGIC I IDENTITAT CORPORATIVA",parent:true},
+  {num:"3.1",t:"Identitat corporativa: Missió, Visió i Valors",s:"font",src:"Pla de màrqueting · 2.2 Cultura corporativa; Pla d'empresa V.1 · Missió, Valors i Cultura",note:"Hi ha dues versions: cal triar-ne una."},
+  {num:"3.2",t:"Objectius estratègics a 3 anys",s:"font",src:"Pla de màrqueting · Objectius SMART (per confirmar)",falta:["Confirmar que els objectius cobreixen els 3 anys"]},
+  {num:"3.3",t:"Anàlisi de l'entorn general (PESTEL)",s:"font",src:"Pla de màrqueting · 3.1 Anàlisi PESTEL"},
+  {num:"3.4",t:"Anàlisi del sector i forces competitives (Model de Porter)",s:"falta",falta:["Anàlisi de les cinc forces de Porter: no existeix"],note:"Hi ha material de base a Competència (3.3) i Col·laboradors (3.5) del pla de màrqueting."},
+  {num:"3.5",t:"Anàlisi interna i recursos/capacitats (Model VRIO)",s:"falta",falta:["Anàlisi VRIO: no existeix"]},
+  {num:"3.6",t:"Matriu DAFO i Estratègies CAME",s:"font",src:"Pla de màrqueting · DAFO i matriu d'impacte",falta:["Estratègies CAME: no existeixen"]},
+  {num:"3.7",t:"Formulació estratègica i Factors Crítics d'Èxit (FCE)",s:"falta",falta:["Formulació estratègica","Factors Crítics d'Èxit"]},
+  {num:"4",t:"PLA DE MÀRQUETING",s:"font",src:"PLA DE MARQUETING PIM PAN-6.docx, sencer",note:"Missió i visió, PESTEL i DAFO també alimenten l'apartat 3: cal decidir si es mouen o es repeteixen."},
+  {num:"5",t:"PLA D'OPERACIONS",s:"falta",falta:["Procés productiu i subcontractació","Proveïdors i aprovisionament","Logística i paper dels distribuïdors"],note:"Al Pla d'empresa V.1 només hi ha el títol. Material dispers: Producció i tecnologia (2.3.3 del pla de màrqueting) i costos de producció i marcatge CE (Annex 2 del pla financer)."},
+  {num:"6",t:"PLA DE RECURSOS HUMANS",s:"font",src:"Pla d'empresa V.1 · Pla d'organització: organigrama, llocs de treball, acollida, formació, fidelització, contractació i escala salarial"},
+  {num:"7",t:"PLA ECONÒMIC I FINANCER (3 ANYS)",s:"font",src:"PIMPAN_Pla_Economic_Financer_FINAL-4.docx, sense portada ni índex"},
+  {num:"8",t:"SISTEMA DE GESTIÓ I CONTROL (QUADRE DE COMANDAMENT INTEGRAL)",s:"font",src:"Pla d'empresa V.1 · Pla de direcció (quatre perspectives) i Conclusions QCI",falta:["Revisar: és un text curt (unes 340 paraules) i cal veure si té indicadors i metes"]},
+  {num:"9",t:"CONCLUSIONS",s:"falta",falta:["Conclusions del conjunt del treball"],note:"El pla financer té conclusions pròpies (apartat X) que en poden ser una part."}
+ ]},
+ {group:"PARTS COMPLEMENTÀRIES", items:[
+  {id:"biblio",t:"Bibliografia i fonts consultades",s:"font",src:"Pla d'empresa V.1 · Bibliografia (molt breu)",falta:["Fonts del pla de màrqueting i del pla financer"]},
+  {id:"taules",t:"Índex de taules, gràfics i il·lustracions",s:"auto"},
+  {id:"annexos",t:"Annexos",s:"font",src:"Pla financer FINAL-4 · Annex 1 (Excel) i Annex 2 (costos, oferta marcatge CE, assegurança RC)",note:"Material sense lloc a l'índex: el pla legal i jurídic del Pla d'empresa V.1 (unes 1.400 paraules). Cal decidir si va aquí, a Operacions o a Recursos Humans."}
+ ]}
+];
+const LOG = [
+ ["27/10 · 17:45","Muntada l'estructura a partir de l'índex general. Indicada la font probable de cada apartat (Pla d'empresa V.1, pla de màrqueting i pla financer FINAL-4). Encara no s'ha col·locat res al document."],
+ ["27/10 · 17:55","La pàgina passa a tenir format de document: fulls A4, el que falta en vermell i les fonts als comentaris del marge."]
+];
+
+const esc = s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const leaves = ()=>DATA.flatMap(g=>g.items.filter(i=>!i.parent));
+
+// Un full per capítol: portada, agraïments+cita, índex, sigles, cada capítol 1–9, cada part complementària
+function buildPages(){
+  const pre = DATA[0].items, cos = DATA[1].items, comp = DATA[2].items;
+  const pages = [];
+  pages.push({kind:"cover",items:[pre[0]]});
+  pages.push({items:[pre[1],pre[2]]});
+  pages.push({kind:"toc",items:[pre[3]]});
+  pages.push({items:[pre[4]]});
+  let cur=null;
+  cos.forEach(i=>{
+    if(!i.num.includes(".")){ cur={items:[i]}; pages.push(cur); }
+    else cur.items.push(i);
+  });
+  comp.forEach(i=>pages.push({items:[i]}));
+  pages.forEach((p,n)=>p.no=n+1);
+  return pages;
+}
+
+function comment(i){
+  const parts=[];
+  if(i.src) parts.push(`<p><span class="k">Font:</span> ${esc(i.src)}</p>`);
+  if(i.note) parts.push(`<p>${esc(i.note)}</p>`);
+  return parts.length?parts.join(""):null;
+}
+function bodyOf(i){
+  if(i.contingut&&i.contingut.length) return i.contingut.map(p=>`<p class="d">${esc(p)}</p>`).join("")+(i.falta||[]).map(f=>`<p class="falta">[FALTA] ${esc(f)}</p>`).join("");
+  if(i.s==="auto") return `<p class="auto">[Es generarà automàticament quan el document estigui muntat]</p>`;
+  if(i.parent) return "";
+  const lines=[];
+  if(i.s==="font") lines.push("Contingut pendent de col·locar.");
+  (i.falta||[]).forEach(f=>lines.push(f));
+  if(!lines.length) lines.push("Contingut pendent de rebre.");
+  return lines.map(l=>`<p class="falta">[FALTA] ${esc(l)}</p>`).join("");
+}
+function label(i){ return i.num?`${i.num}. ${i.t}`:i.t; }
+
+function render(){
+  const L=leaves(), c={falta:0,font:0,ok:0,auto:0}; L.forEach(i=>c[i.s]++);
+  document.getElementById("stats").innerHTML =
+    `<span><i class="sw" style="background:#C00000"></i><b>${c.falta}</b> falten</span>`+
+    `<span><i class="sw" style="background:#B07A12"></i><b>${c.font}</b> amb font, per col·locar</span>`+
+    `<span><i class="sw" style="background:#2F7A54"></i><b>${c.ok}</b> col·locats</span>`+
+    `<span><i class="sw" style="background:#8A8F98"></i><b>${c.auto}</b> automàtics</span>`;
+  document.getElementById("upd").textContent="Actualitzat "+UPDATED;
+
+  const pages=buildPages();
+  const where={}; pages.forEach(p=>p.items.forEach(i=>where[label(i)]=p.no));
+  let html="", cmId=0;
+  pages.forEach(p=>{
+    let body="", rail="";
+    p.items.forEach((i,k)=>{
+      const cm=comment(i), id="c"+(cmId++);
+      const isH1 = !!i.num && !i.num.includes(".");
+      if(p.kind==="cover"){
+        body+=`<div class="cover sec" data-cm="${cm?id:""}"><div class="big">PIMPAN</div>${bodyOf(i)}${cm?`<div class="cm-inline">${cm}</div>`:""}</div>`;
+      } else if(p.kind==="toc"){
+        let toc="";
+        DATA.forEach(g=>{
+          toc+=`<div class="grp">${esc(g.group)}</div>`;
+          g.items.forEach(x=>{
+            const lv = (x.num && x.num.includes("."))?2:1;
+            toc+=`<div class="lv${lv}"><span class="l">${esc(label(x))}</span><span class="lead"></span><span>${where[label(x)]}</span></div>`;
+          });
+        });
+        body+=`<div class="sec"><h1 class="d">${esc(i.t)}</h1><div class="toc">${toc}</div><p class="toc-note">Vista prèvia: al Word l'índex es generarà automàticament amb els números de pàgina reals.</p></div>`;
+      } else {
+        const h = (isH1 || !i.num) && k===0 ? `<h1 class="d">${esc(label(i))}</h1>` : `<h2 class="d">${esc(label(i))}</h2>`;
+        body+=`<div class="sec" data-cm="${cm?id:""}">${h}${bodyOf(i)}${cm?`<div class="cm-inline">${cm}</div>`:""}</div>`;
+      }
+      if(cm) rail+=`<div class="cm" id="${id}"><div class="who">${i.src?"D'on sortirà":"Nota"}</div>${cm}</div>`;
+    });
+    html+=`<div class="pagewrap"><article class="sheet"><div class="body">${body}</div><div class="pgno">${p.no}</div></article><aside class="rail" aria-label="Comentaris">${rail}</aside></div>`;
+  });
+  html+=`<section class="desknote"><h3>Registre de canvis</h3><ol>${LOG.map(([t,m])=>`<li><time>${t}</time><span>${esc(m)}</span></li>`).join("")}</ol></section>`;
+  document.getElementById("desk").innerHTML=html;
+  placeComments();
+  document.querySelectorAll(".cm").forEach(el=>{
+    const sec=document.querySelector(`.sec[data-cm="${el.id}"]`);
+    if(!sec) return;
+    el.onmouseenter=()=>{sec.classList.add("hl");el.classList.add("on")};
+    el.onmouseleave=()=>{sec.classList.remove("hl");el.classList.remove("on")};
+  });
+}
+// Col·loca cada comentari a l'altura del seu apartat, sense que se'n trepitgin dos (com al Word)
+function placeComments(){
+  document.querySelectorAll(".pagewrap").forEach(w=>{
+    const rail=w.querySelector(".rail"); if(!rail||getComputedStyle(rail).display==="none") return;
+    const top0=rail.getBoundingClientRect().top; let floor=0;
+    rail.querySelectorAll(".cm").forEach(el=>{
+      const sec=w.querySelector(`.sec[data-cm="${el.id}"]`);
+      const want=sec?sec.getBoundingClientRect().top-top0:0;
+      const y=Math.max(want,floor); el.style.top=y+"px"; floor=y+el.offsetHeight+10;
+    });
+  });
+}
+render();
+let rt; addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(placeComments,120)});
+if(document.fonts&&document.fonts.ready) document.fonts.ready.then(placeComments);
+</script>
+
+</html>
