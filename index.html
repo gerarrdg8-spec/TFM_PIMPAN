@@ -3,7 +3,7 @@
 <title>Muntatge TFM PIMPAN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400&family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: capçalera amb el progrés, tres columnes de "què cal fer" i el mapa de l'índex en targetes per capítol */
 :root{
@@ -21,6 +21,7 @@
   --navy:#A9C0EC; --navy-soft:#22304A;
   --falta:#F2797F; --falta-bg:#3B1E23; --font:#E6B85E; --font-bg:#372C16; --ok:#72CC9D; --ok-bg:#173126; --auto:#A6AEBC; --auto-bg:#272E3B; color-scheme:dark}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5;margin:0;padding-inline:16px;padding-block:28px 64px}
 .wrap{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;gap:30px}
 .eyebrow{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
@@ -92,9 +93,46 @@ h2.sec{font-family:var(--display);font-weight:600;font-size:24px;margin:0;color:
   .map{grid-template-columns:1fr}
   .log li{grid-template-columns:1fr}
 }
+
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);margin:-28px -16px 22px;padding:12px 16px 0;border-bottom:1px solid var(--line)}
+.tabs-in{max-width:1120px;margin:0 auto;display:flex;gap:4px}
+.tabs button{font:600 14.5px var(--body);color:var(--muted);background:none;border:0;border-bottom:3px solid transparent;padding:8px 14px 10px;cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--navy)}
+.tabs button:focus-visible{outline:2px solid var(--navy);outline-offset:2px;border-radius:4px}
+#v-word{max-width:1120px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:22px}
+#v-word[hidden]{display:none!important}
+.wbar{width:100%;max-width:794px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.wbar-l{display:flex;flex-direction:column;gap:2px;min-width:0}
+.wfile{display:flex;gap:8px;align-items:center;font-size:15px}
+.wfile b{overflow-wrap:anywhere}
+.wmeta{font-size:13px;color:var(--muted)}
+.dl{display:inline-flex;align-items:center;gap:8px;background:var(--navy);color:var(--card);border:0;border-radius:8px;padding:10px 16px;font:600 14.5px var(--body);cursor:pointer}
+.dl:hover{filter:brightness(1.1)}
+.dl:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.dl[disabled]{opacity:.6;cursor:progress}
+.wmsg{margin:-10px 0 0;font-size:13.5px;color:var(--muted);min-height:1em;max-width:794px;width:100%}
+.pages{display:flex;flex-direction:column;gap:24px;width:100%;align-items:center}
+.sheet{background:#FFFFFF;color:#1A1A1A;width:794px;max-width:100%;min-height:1123px;padding:86px 76px 60px;box-shadow:0 1px 3px rgba(0,0,0,.18),0 6px 18px rgba(0,0,0,.08);font-family:"Carlito","Calibri",Arial,sans-serif;font-size:15px;line-height:1.45;display:flex;flex-direction:column}
+.sheet .sb{flex:1;display:flex;flex-direction:column;gap:6px}
+.sheet h3.w1{color:#1F3864;font-size:23px;font-weight:700;margin:0 0 6px}
+.sheet h3.w2{color:#1F3864;font-size:18.5px;font-weight:700;margin:14px 0 2px}
+.sheet p{margin:0;text-align:justify}
+.sheet .fa{color:#C00000;font-weight:700}
+.sheet .fp{color:#7A7F87;font-style:italic;font-size:13.5px}
+.sheet .au{color:#7A7F87;font-style:italic}
+.sheet .cov{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:12px}
+.sheet .cov .big2{font-size:34px;color:#1F3864;font-weight:700}
+.sheet .pg{text-align:center;color:#8A8F98;font-size:12.5px;margin-top:24px}
+@media (max-width:700px){.sheet{min-height:0;padding:36px 22px 24px;font-size:14.5px}.sheet .cov{min-height:50vh}}
 </style>
 
-<div class="wrap">
+<nav class="tabs" role="tablist" aria-label="Vistes">
+  <div class="tabs-in">
+    <button role="tab" id="t-resum" aria-controls="v-resum" aria-selected="true">Resum visual</button>
+    <button role="tab" id="t-word" aria-controls="v-word" aria-selected="false">Document Word</button>
+  </div>
+</nav>
+<div class="wrap" id="v-resum" role="tabpanel" aria-labelledby="t-resum">
   <section class="hero">
     <div class="hero-l">
       <div>
@@ -129,68 +167,22 @@ h2.sec{font-family:var(--display);font-weight:600;font-size:24px;margin:0;color:
     <ol id="log"></ol>
   </section>
 </div>
+<div id="v-word" role="tabpanel" aria-labelledby="t-word" hidden>
+  <div class="wbar">
+    <div class="wbar-l">
+      <div class="wfile"><svg width="18" height="20" viewBox="0 0 16 18" aria-hidden="true"><path d="M1.5 1.5h8.5l4.5 4.5v10.5h-13z" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10 1.5V6h4.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><b id="wname"></b></div>
+      <div class="wmeta" id="wmeta"></div>
+    </div>
+    <button class="dl" id="dl"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M2.5 13.5h11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Descarrega el Word</button>
+  </div>
+  <p class="wmsg" id="wmsg" role="status"></p>
+  <div class="pages" id="pages"></div>
+</div>
 
 <script>
-const UPDATED = "27/10/2026 · 18:10";
+/*DADES-INICI*/const D={"UPDATED": "27/10/2026 · 17:51", "DATA": [{"group": "Parts preliminars", "items": [{"t": "Portada", "s": "falta", "falta": ["Títol definitiu", "Autors, tutor/a, màster, universitat i data"], "note": "Es pot aprofitar la portada del pla financer."}, {"t": "Agraïments i tutors", "s": "falta", "falta": ["Text d'agraïments", "Nom del tutor/a"]}, {"t": "Cita", "s": "falta", "falta": ["Cita i autor"]}, {"t": "Índex general", "s": "auto"}, {"t": "Sigles i abreviatures", "s": "falta", "falta": ["Llista de sigles"], "note": "Es compilarà del text muntat."}]}, {"group": "Cos del treball", "items": [{"num": "1", "t": "Resum executiu", "parent": true, "note": "Convé escriure'l al final, a partir de tota la resta."}, {"num": "1.1", "t": "Oportunitat de mercat i tesi estratègica", "s": "font", "docs": ["mkt"], "src": "Pla de màrqueting · 1.4", "falta": ["Tesi estratègica"]}, {"num": "1.2", "t": "Concepte de negoci i proposta de valor", "s": "font", "docs": ["mkt"], "src": "Pla de màrqueting · 1.5"}, {"num": "1.3", "t": "Model de negoci i estructura d'ingressos", "s": "font", "docs": ["fin"], "src": "Pla financer · Resum executiu"}, {"num": "1.4", "t": "Organització, equip i operacions", "s": "font", "docs": ["fin", "v1"], "src": "Pla financer · Presentació; V.1 · Organització", "falta": ["Part d'operacions"]}, {"num": "1.5", "t": "Resum del pla d'inversions i viabilitat", "s": "font", "docs": ["fin"], "src": "Pla financer · I. Resum executiu"}, {"num": "2", "t": "Introducció", "parent": true}, {"num": "2.1", "t": "Contextualització del projecte", "s": "font", "docs": ["mkt"], "src": "Pla de màrqueting · 1.1 i 2.1"}, {"num": "2.2", "t": "Origen de la idea i motivació", "s": "font", "docs": ["mkt"], "src": "Pla de màrqueting · 1.2"}, {"num": "2.3", "t": "Abast i objectius del Pla d'Empresa", "s": "font", "docs": ["mkt"], "src": "Pla de màrqueting · 1.3", "falta": ["Abast del pla d'empresa"]}, {"num": "3", "t": "Anàlisi estratègic i identitat corporativa", "parent": true}, {"num": "3.1", "t": "Missió, Visió i Valors", "s": "font", "docs": ["mkt", "v1"], "src": "Pla de màrqueting · 2.2; V.1 · Missió i Valors", "note": "Dues versions: cal triar-ne una."}, {"num": "3.2", "t": "Objectius estratègics a 3 anys", "s": "font", "docs": ["mkt"], "src": "Pla de màrqueting · Objectius SMART", "falta": ["Confirmar que cobreixen 3 anys"]}, {"num": "3.3", "t": "Entorn general (PESTEL)", "s": "font", "docs": ["mkt"], "src": "Pla de màrqueting · 3.1"}, {"num": "3.4", "t": "Forces competitives (Porter)", "s": "falta", "falta": ["Anàlisi de Porter: no existeix"], "note": "Base a Competència i Col·laboradors del pla de màrqueting."}, {"num": "3.5", "t": "Recursos i capacitats (VRIO)", "s": "falta", "falta": ["Anàlisi VRIO: no existeix"]}, {"num": "3.6", "t": "DAFO i estratègies CAME", "s": "font", "docs": ["mkt"], "src": "Pla de màrqueting · DAFO", "falta": ["Estratègies CAME"]}, {"num": "3.7", "t": "Formulació estratègica i FCE", "s": "falta", "falta": ["Formulació estratègica", "Factors Crítics d'Èxit"]}, {"num": "4", "t": "Pla de màrqueting", "s": "font", "docs": ["mkt"], "src": "Pla de màrqueting, sencer", "note": "Missió, PESTEL i DAFO també van a l'apartat 3."}, {"num": "5", "t": "Pla d'operacions", "s": "falta", "falta": ["Procés productiu i subcontractació", "Proveïdors i aprovisionament", "Logística i distribuïdors"], "note": "Al V.1 només hi ha el títol."}, {"num": "6", "t": "Pla de recursos humans", "s": "font", "docs": ["v1"], "src": "V.1 · Pla d'organització"}, {"num": "7", "t": "Pla econòmic i financer", "s": "font", "docs": ["fin"], "src": "Pla financer FINAL-4, sense portada ni índex"}, {"num": "8", "t": "Quadre de Comandament Integral", "s": "font", "docs": ["v1"], "src": "V.1 · Pla de direcció i Conclusions QCI", "falta": ["Revisar si té indicadors i metes"]}, {"num": "9", "t": "Conclusions", "s": "falta", "falta": ["Conclusions del conjunt"], "note": "Les del pla financer en poden ser una part."}]}, {"group": "Parts complementàries", "items": [{"t": "Bibliografia i fonts", "s": "font", "docs": ["v1"], "src": "V.1 · Bibliografia (molt breu)", "falta": ["Fonts del màrqueting i del financer"]}, {"t": "Índex de taules i gràfics", "s": "auto"}, {"t": "Annexos", "s": "font", "docs": ["fin"], "src": "Pla financer · Annexos 1 i 2"}]}], "DOCS": {"mkt": {"name": "PLA DE MARQUETING PIM PAN-6.docx", "desc": "Pla de màrqueting sencer"}, "fin": {"name": "PIMPAN_Pla_Economic_Financer_FINAL-4.docx", "desc": "Pla econòmic i financer actualitzat"}, "v1": {"name": "V.1. Pla d'empresa. PIMPAN.docx", "desc": "Missió, organització, QCI i bibliografia"}}, "DECISIONS": [["3.1", "Missió, visió i valors: quina de les dues versions fem servir?"], ["—", "Pla legal i jurídic del V.1 (1.400 paraules): no té lloc a l'índex. Va a Operacions, a RRHH o als Annexos?"], ["4", "Missió, PESTEL i DAFO: es mouen a l'apartat 3 o es repeteixen?"], ["8", "El QCI és un text curt: cal ampliar-lo amb indicadors i metes?"]], "LOG": [["27/10 · 17:45", "Muntada l'estructura a partir de l'índex general, amb la font probable de cada apartat."], ["27/10 · 17:55", "Vista en format document."], ["27/10 · 17:51", "Vista visual (progrés, què cal fer, mapa de l'índex i documents font) i nova pestanya «Document Word» amb la vista prèvia i el botó per descarregar el .docx. Encara no s'ha col·locat res al document."]], "DOCX": {"nom": "PIMPAN_TFM_MUNTATGE.docx", "mida": "37 KB", "data": "27/10/2026 a les 17:51"}};/*DADES-FI*/
+const {UPDATED,DATA,DOCS,DECISIONS,LOG,DOCX}=D;
 const STATUS = {falta:"Falta",font:"Tenim font",ok:"Col·locat",auto:"Automàtic"};
-// estat: falta | font | ok | auto.  docs: documents font que l'alimenten.
-const DATA = [
- {group:"Parts preliminars", items:[
-  {t:"Portada",s:"falta",falta:["Títol definitiu","Autors, tutor/a, màster, universitat i data"],note:"Es pot aprofitar la portada del pla financer."},
-  {t:"Agraïments i tutors",s:"falta",falta:["Text d'agraïments","Nom del tutor/a"]},
-  {t:"Cita",s:"falta",falta:["Cita i autor"]},
-  {t:"Índex general",s:"auto"},
-  {t:"Sigles i abreviatures",s:"falta",falta:["Llista de sigles"],note:"Es compilarà del text muntat."}
- ]},
- {group:"Cos del treball", items:[
-  {num:"1",t:"Resum executiu",parent:true,note:"Convé escriure'l al final, a partir de tota la resta."},
-  {num:"1.1",t:"Oportunitat de mercat i tesi estratègica",s:"font",docs:["mkt"],src:"Pla de màrqueting · 1.4",falta:["Tesi estratègica"]},
-  {num:"1.2",t:"Concepte de negoci i proposta de valor",s:"font",docs:["mkt"],src:"Pla de màrqueting · 1.5"},
-  {num:"1.3",t:"Model de negoci i estructura d'ingressos",s:"font",docs:["fin"],src:"Pla financer · Resum executiu"},
-  {num:"1.4",t:"Organització, equip i operacions",s:"font",docs:["fin","v1"],src:"Pla financer · Presentació; V.1 · Organització",falta:["Part d'operacions"]},
-  {num:"1.5",t:"Resum del pla d'inversions i viabilitat",s:"font",docs:["fin"],src:"Pla financer · I. Resum executiu"},
-  {num:"2",t:"Introducció",parent:true},
-  {num:"2.1",t:"Contextualització del projecte",s:"font",docs:["mkt"],src:"Pla de màrqueting · 1.1 i 2.1"},
-  {num:"2.2",t:"Origen de la idea i motivació",s:"font",docs:["mkt"],src:"Pla de màrqueting · 1.2"},
-  {num:"2.3",t:"Abast i objectius del Pla d'Empresa",s:"font",docs:["mkt"],src:"Pla de màrqueting · 1.3",falta:["Abast del pla d'empresa"]},
-  {num:"3",t:"Anàlisi estratègic i identitat corporativa",parent:true},
-  {num:"3.1",t:"Missió, Visió i Valors",s:"font",docs:["mkt","v1"],src:"Pla de màrqueting · 2.2; V.1 · Missió i Valors",note:"Dues versions: cal triar-ne una."},
-  {num:"3.2",t:"Objectius estratègics a 3 anys",s:"font",docs:["mkt"],src:"Pla de màrqueting · Objectius SMART",falta:["Confirmar que cobreixen 3 anys"]},
-  {num:"3.3",t:"Entorn general (PESTEL)",s:"font",docs:["mkt"],src:"Pla de màrqueting · 3.1"},
-  {num:"3.4",t:"Forces competitives (Porter)",s:"falta",falta:["Anàlisi de Porter: no existeix"],note:"Base a Competència i Col·laboradors del pla de màrqueting."},
-  {num:"3.5",t:"Recursos i capacitats (VRIO)",s:"falta",falta:["Anàlisi VRIO: no existeix"]},
-  {num:"3.6",t:"DAFO i estratègies CAME",s:"font",docs:["mkt"],src:"Pla de màrqueting · DAFO",falta:["Estratègies CAME"]},
-  {num:"3.7",t:"Formulació estratègica i FCE",s:"falta",falta:["Formulació estratègica","Factors Crítics d'Èxit"]},
-  {num:"4",t:"Pla de màrqueting",s:"font",docs:["mkt"],src:"Pla de màrqueting, sencer",note:"Missió, PESTEL i DAFO també van a l'apartat 3."},
-  {num:"5",t:"Pla d'operacions",s:"falta",falta:["Procés productiu i subcontractació","Proveïdors i aprovisionament","Logística i distribuïdors"],note:"Al V.1 només hi ha el títol."},
-  {num:"6",t:"Pla de recursos humans",s:"font",docs:["v1"],src:"V.1 · Pla d'organització"},
-  {num:"7",t:"Pla econòmic i financer",s:"font",docs:["fin"],src:"Pla financer FINAL-4, sense portada ni índex"},
-  {num:"8",t:"Quadre de Comandament Integral",s:"font",docs:["v1"],src:"V.1 · Pla de direcció i Conclusions QCI",falta:["Revisar si té indicadors i metes"]},
-  {num:"9",t:"Conclusions",s:"falta",falta:["Conclusions del conjunt"],note:"Les del pla financer en poden ser una part."}
- ]},
- {group:"Parts complementàries", items:[
-  {t:"Bibliografia i fonts",s:"font",docs:["v1"],src:"V.1 · Bibliografia (molt breu)",falta:["Fonts del màrqueting i del financer"]},
-  {t:"Índex de taules i gràfics",s:"auto"},
-  {t:"Annexos",s:"font",docs:["fin"],src:"Pla financer · Annexos 1 i 2"}
- ]}
-];
-const DOCS = {
-  mkt:{name:"PLA DE MARQUETING PIM PAN-6.docx",desc:"Pla de màrqueting sencer"},
-  fin:{name:"PIMPAN_Pla_Economic_Financer_FINAL-4.docx",desc:"Pla econòmic i financer actualitzat"},
-  v1:{name:"V.1. Pla d'empresa. PIMPAN.docx",desc:"Missió, organització, QCI i bibliografia"}
-};
-const DECISIONS = [
-  ["3.1","Missió, visió i valors: quina de les dues versions fem servir?"],
-  ["—","Pla legal i jurídic del V.1 (1.400 paraules): no té lloc a l'índex. Va a Operacions, a RRHH o als Annexos?"],
-  ["4","Missió, PESTEL i DAFO: es mouen a l'apartat 3 o es repeteixen?"],
-  ["8","El QCI és un text curt: cal ampliar-lo amb indicadors i metes?"]
-];
-const LOG = [
- ["27/10 · 17:45","Muntada l'estructura a partir de l'índex general, amb la font probable de cada apartat."],
- ["27/10 · 17:55","Vista en format document."],
- ["27/10 · 18:10","Vista visual: progrés, què cal fer, mapa de l'índex i documents font. Encara no s'ha col·locat res al document."]
-];
-
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
 const all=DATA.flatMap(g=>g.items);
 const leaves=all.filter(i=>!i.parent);
@@ -248,6 +240,69 @@ document.getElementById("sources").innerHTML=Object.entries(DOCS).map(([k,d])=>{
   return `<div class="srcc"><span class="k">${n} apartats</span><b>${esc(d.name)}</b><span>${esc(d.desc)}</span></div>`;
 }).join("");
 document.getElementById("log").innerHTML=LOG.map(([t,m])=>`<li><time>${t}</time><span>${esc(m)}</span></li>`).join("");
+
+// ---- Pestanyes
+const TABS={resum:["t-resum","v-resum"],word:["t-word","v-word"]};
+function show(k){
+  Object.entries(TABS).forEach(([n,[t,v]])=>{const on=n===k;document.getElementById(t).setAttribute("aria-selected",on);document.getElementById(v).hidden=!on;});
+  try{localStorage.setItem("tfm-tab",k)}catch(e){}
+}
+document.getElementById("t-resum").onclick=()=>show("resum");
+document.getElementById("t-word").onclick=()=>show("word");
+let first=location.hash==="#word"?"word":location.hash==="#resum"?"resum":null;
+if(!first){try{first=localStorage.getItem("tfm-tab")}catch(e){}}
+show(first==="word"?"word":"resum");
+
+// ---- Vista Word: el mateix contingut que el .docx
+(function(){
+  const pre=DATA[0].items, cos=DATA[1].items, comp=DATA[2].items, pages=[];
+  pages.push({cover:true,items:[pre[0]]}); pages.push({items:[pre[1],pre[2]]}); pages.push({items:[pre[3]]}); pages.push({items:[pre[4]]});
+  let cur; cos.forEach(i=>{ if(!i.num.includes(".")){cur={items:[i]};pages.push(cur);} else cur.items.push(i); });
+  comp.forEach(i=>pages.push({items:[i]}));
+  const L=i=>i.num?`${i.num}. ${i.parent||!i.num.includes(".")?i.t.toUpperCase():i.t}`:i.t;
+  const body=i=>{
+    let s="";
+    (i.contingut||[]).forEach(p=>s+=`<p>${esc(p)}</p>`);
+    if(i.s==="auto") return s+`<p class="au">[Es generarà automàticament quan el document estigui muntat]</p>`;
+    if(i.parent) return s;
+    if(i.s==="font"&&!(i.contingut||[]).length) s+=`<p class="fa">[FALTA] Contingut pendent de col·locar.</p>`;
+    (i.falta||[]).forEach(f=>s+=`<p class="fa">[FALTA] ${esc(f)}</p>`);
+    if(i.s==="falta"&&!(i.falta||[]).length) s+=`<p class="fa">[FALTA] Contingut pendent de rebre.</p>`;
+    if(i.src) s+=`<p class="fp">Font prevista: ${esc(i.src)}</p>`;
+    return s;
+  };
+  document.getElementById("pages").innerHTML=pages.map((p,n)=>{
+    const inner=p.items.map((i,k)=>{
+      if(p.cover) return `<div class="cov"><div class="big2">PIMPAN</div>${body(i)}</div>`;
+      const h1=k===0&&(!i.num||!i.num.includes("."));
+      return `<h3 class="${h1?"w1":"w2"}">${esc(L(i))}</h3>${body(i)}`;
+    }).join("");
+    return `<article class="sheet"><div class="sb">${inner}</div><div class="pg">${n+1}</div></article>`;
+  }).join("");
+  document.getElementById("wname").textContent=DOCX.nom;
+  document.getElementById("wmeta").textContent=`${DOCX.mida} · generat el ${DOCX.data} · ${pages.length} pàgines a la vista prèvia`;
+})();
+
+// ---- Descàrrega: dins de Claude amb la capacitat de descàrregues; fora (GitHub), amb un enllaç normal
+const dlCap = (window.claude && window.claude.use) ? window.claude.use("downloads") : Promise.resolve(null);
+document.getElementById("dl").onclick=async()=>{
+  const btn=document.getElementById("dl"), msg=document.getElementById("wmsg");
+  btn.disabled=true; msg.textContent="Preparant el document…";
+  try{
+    const r=await fetch(DOCX.nom); if(!r.ok) throw new Error("http "+r.status);
+    const blob=await r.blob();
+    const dl=await dlCap;
+    if(dl){
+      try{ await dl.save({filename:DOCX.nom,data:blob}); msg.textContent="Document descarregat."; }
+      catch(e){ msg.textContent = e&&e.code==="declined" ? "Descàrrega cancel·lada." : "Aquí no es pot descarregar. Obre la versió web per fer-ho."; }
+    } else {
+      const u=URL.createObjectURL(blob), a=document.createElement("a");
+      a.href=u; a.download=DOCX.nom; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(u),4000); msg.textContent="Document descarregat.";
+    }
+  }catch(e){ msg.textContent="No s'ha pogut obtenir el document. Torna-ho a provar d'aquí a una estona."; }
+  btn.disabled=false;
+};
 </script>
 
 </html>
